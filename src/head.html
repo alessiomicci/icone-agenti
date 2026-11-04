@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Icone agenti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+:root {
+  /* Layout: colonna sinistra = impostazioni + anteprima; destra = dispositivi, file, snippet */
+  --bg: #F3F2EE; --surface: #FFFFFF; --ink: #1B1B24; --muted: #625F6B; --line: #DEDCD5;
+  --accent: #3D6BF5; --on-accent: #FFFFFF;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #15151B; --surface: #1E1E26; --ink: #EDECE8; --muted: #A3A1AC; --line: #30303A; --accent: #7C9BFF; --on-accent: #0E1330; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #15151B; --surface: #1E1E26; --ink: #EDECE8; --muted: #A3A1AC; --line: #30303A; --accent: #7C9BFF; --on-accent: #0E1330; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--body); }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 32px 20px 56px; display: grid; gap: 28px; }
+header { display: grid; gap: 6px; }
+h1 { font: 800 clamp(28px, 4vw, 40px)/1.05 var(--display); margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+header p { margin: 0; color: var(--muted); max-width: 66ch; }
+h2 { font: 600 18px var(--display); margin: 0 0 4px; }
+.sub { margin: 0 0 14px; color: var(--muted); font-size: 14px; }
+.layout { display: grid; grid-template-columns: 340px 1fr; gap: 28px; align-items: start; }
+@media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; display: grid; gap: 16px; }
+.bench { position: sticky; top: 16px; }
+@media (max-width: 860px) { .bench { position: static; } }
+label, .lbl { font-size: 13px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 6px; }
+input[type="text"] { width: 100%; font: 500 16px var(--body); padding: 9px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+button { font: 600 14px var(--body); padding: 8px 12px; border-radius: 9px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
+button:hover { border-color: var(--ink); }
+button:disabled { opacity: .5; cursor: not-allowed; }
+button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+button.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.variant { font: 500 13px var(--mono); color: var(--muted); min-width: 7ch; text-align: center; }
+.preview { display: grid; place-items: center; }
+.preview svg { width: 190px; height: 190px; display: block; }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.right { display: grid; gap: 22px; }
+
+/* dispositivi: colori fissi, imitano le superfici reali */
+.devices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 560px) { .devices { grid-template-columns: 1fr; } }
+.dev { margin: 0; display: grid; gap: 8px; }
+.dev figcaption { font-size: 13px; color: var(--muted); }
+.dev figcaption code { font: 12px var(--mono); color: var(--ink); }
+.screen { border-radius: 14px; overflow: hidden; height: 150px; position: relative; }
+.browser { background: #DEE1E6; display: grid; grid-template-rows: 40px 1fr; font: 12px system-ui, sans-serif; color: #202124; }
+.tabbar { display: flex; align-items: end; gap: 2px; padding: 0 8px; }
+.tab { display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; width: 170px; border-radius: 9px 9px 0 0; color: #3C4043; }
+.tab.on { background: #FFFFFF; color: #202124; }
+.tab span.t { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tab .ph { width: 16px; height: 16px; border-radius: 50%; background: #9AA0A6; }
+.browser .page { background: #FFFFFF; padding: 10px 12px; }
+.urlbar { background: #F1F3F4; border-radius: 99px; padding: 6px 12px; color: #5F6368; }
+.ios { background: linear-gradient(160deg, #B9502F, #8E3B63 50%, #4B3480); display: flex; gap: 18px; padding: 22px 18px; align-items: start; }
+.app { display: grid; justify-items: center; gap: 5px; width: 62px; font: 11px -apple-system, system-ui, sans-serif; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
+.app img, .app .ph { width: 60px; height: 60px; border-radius: 13.5px; display: block; }
+.app .ph { background: rgba(255,255,255,.35); }
+.app span { max-width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.android { background: linear-gradient(200deg, #1E3A5F, #0D1B2A); display: flex; gap: 22px; padding: 22px 18px; align-items: start; }
+.android .app img, .android .app .ph { border-radius: 50%; width: 56px; height: 56px; }
+.android .app .ph { background: rgba(255,255,255,.18); }
+.android .app img.squircle { border-radius: 30%; }
+.google { background: #FFFFFF; padding: 18px; font: 14px arial, sans-serif; color: #202124; display: grid; gap: 4px; align-content: start; }
+.gsite { display: flex; gap: 10px; align-items: center; }
+.gfav { width: 28px; height: 28px; border-radius: 50%; background: #F1F3F4; border: 1px solid #DADCE0; display: grid; place-items: center; }
+.gfav img { width: 18px; height: 18px; display: block; }
+.gsite small { display: block; color: #4D5156; font-size: 12px; }
+.gtitle { color: #1A0DAB; font-size: 19px; line-height: 1.3; margin-top: 4px; }
+.gdesc { color: #4D5156; font-size: 13px; }
+
+table { width: 100%; border-collapse: collapse; }
+td { padding: 10px 8px; border-top: 1px solid var(--line); vertical-align: middle; font-size: 14px; }
+tr:first-child td { border-top: 0; }
+td.th img { width: 36px; height: 36px; display: block; border-radius: 6px; background: repeating-conic-gradient(var(--line) 0 25%, transparent 0 50%) 0 0 / 10px 10px; }
+td.th .ext { width: 36px; height: 36px; display: grid; place-items: center; font: 600 10px var(--mono); border: 1px solid var(--line); border-radius: 6px; color: var(--muted); }
+td.file { font: 500 13px var(--mono); word-break: break-all; }
+td.use { color: var(--muted); }
+td.dim { font: 12px var(--mono); color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+td.act { text-align: right; }
+.tablewrap { overflow-x: auto; }
+pre { margin: 0; padding: 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; font: 12.5px/1.6 var(--mono); overflow-x: auto; white-space: pre; }
+.status { font-size: 13px; color: var(--muted); min-height: 1.5em; margin: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Icone agenti</h1>
+    <p>Scrivi il nome dell'agente, scegli lo stile e scarica il pacchetto completo di icone per browser, iPhone e Android, con il manifest e il codice da incollare nel sito. Lo stesso nome produce sempre la stessa icona.</p>
+  </header>
+
+  <div class="layout">
+    <section class="panel bench" aria-label="Impostazioni">
+      <div>
+        <label for="name">Nome dell'agente</label>
+        <input id="name" type="text" value="Ricercatore" autocomplete="off" spellcheck="false">
+      </div>
+      <div>
+        <span class="lbl" id="style-lbl">Stile</span>
+        <div class="row" role="group" aria-labelledby="style-lbl">
+          <button type="button" data-style="robot" aria-pressed="true">Robot</button>
+          <button type="button" data-style="creature" aria-pressed="false">Creatura</button>
+        </div>
+      </div>
+      <div class="preview" id="preview"></div>
+      <div class="row" role="group" aria-label="Variante">
+        <button type="button" id="prev" aria-label="Variante precedente">‹</button>
+        <span class="variant" id="variant">var. 0</span>
+        <button type="button" id="next" aria-label="Variante successiva">›</button>
+      </div>
+      <div>
+        <span class="lbl" id="shape-lbl">Forma della favicon nel browser</span>
+        <div class="row" role="group" aria-labelledby="shape-lbl">
+          <button type="button" data-shape="square" aria-pressed="true">Quadrato</button>
+          <button type="button" data-shape="circle" aria-pressed="false">Cerchio</button>
+          <button type="button" data-shape="full" aria-pressed="false">Pieno</button>
+        </div>
+      </div>
+      <div>
+        <label for="appname">Nome dell'app (etichetta e manifest)</label>
+        <input id="appname" type="text" placeholder="Uguale al nome dell'agente" autocomplete="off">
+      </div>
+      <div>
+        <label for="path">Cartella delle icone sul sito</label>
+        <input id="path" type="text" value="/" autocomplete="off" spellcheck="false">
+      </div>
+      <p class="hint">iPhone e Android ricevono sempre l'icona a pieno quadrato: è il sistema a ritagliarla con gli angoli o a cerchio.</p>
+    </section>
+
+    <div class="right">
+      <section class="panel" aria-label="Anteprima sui dispositivi">
+        <div>
+          <h2>Come appare</h2>
+          <p class="sub">Anteprime costruite con i file veri del pacchetto.</p>
+        </div>
+        <div class="devices">
+          <figure class="dev">
+            <div class="screen browser">
+              <div class="tabbar">
+                <div class="tab on"><img id="m-tab" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="16" height="16" alt=""><span class="t" data-appname></span></div>
+                <div class="tab"><span class="ph"></span><span class="t">Posta in arrivo</span></div>
+              </div>
+              <div class="page"><div class="urlbar" id="m-url">tuosito.it</div></div>
+            </div>
+            <figcaption>Scheda del browser · <code>favicon.svg</code>, <code>favicon.ico</code></figcaption>
+          </figure>
+          <figure class="dev">
+            <div class="screen google">
+              <div class="gsite"><span class="gfav"><img id="m-google" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt=""></span><span><span data-appname></span><small>https://tuosito.it</small></span></div>
+              <div class="gtitle" data-appname></div>
+              <div class="gdesc">Il tuo agente AI, sempre disponibile.</div>
+            </div>
+            <figcaption>Risultati di Google · <code>favicon-96x96.png</code></figcaption>
+          </figure>
+          <figure class="dev">
+            <div class="screen ios">
+              <div class="app"><img id="m-ios" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt=""><span data-appname></span></div>
+              <div class="app"><span class="ph"></span><span>Meteo</span></div>
+              <div class="app"><span class="ph"></span><span>Note</span></div>
+            </div>
+            <figcaption>iPhone e iPad · <code>apple-touch-icon.png</code></figcaption>
+          </figure>
+          <figure class="dev">
+            <div class="screen android">
+              <div class="app"><img id="m-android" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt=""><span data-appname></span></div>
+              <div class="app"><img id="m-android2" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" class="squircle" alt=""><span>Altra forma</span></div>
+              <div class="app"><span class="ph"></span><span>Foto</span></div>
+            </div>
+            <figcaption>Android, app installata · <code>web-app-manifest-*.png</code></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="File del pacchetto">
+        <div>
+          <h2>File del pacchetto</h2>
+          <p class="sub">Carica tutti i file nella cartella indicata a sinistra (di solito la radice del sito).</p>
+        </div>
+        <div class="tablewrap"><table><tbody id="files"></tbody></table></div>
+        <div class="row">
+          <button type="button" class="primary" id="zip" disabled>Scarica tutto (.zip)</button>
+        </div>
+        <p class="status" id="status" aria-live="polite"></p>
+      </section>
+
+      <section class="panel" aria-label="Codice HTML">
+        <div>
+          <h2>Codice per il sito</h2>
+          <p class="sub">Incollalo dentro <code>&lt;head&gt;</code> di ogni pagina.</p>
+        </div>
+        <pre id="snippet"></pre>
+        <div class="row"><button type="button" id="copy">Copia codice</button><span class="hint" id="copied" aria-live="polite"></span></div>
+      </section>
+    </div>
+  </div>
+</div>
+<script>
