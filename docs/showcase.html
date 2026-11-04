@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>showcase</title>
+<style>
+body{margin:0;background:#15151B;font-family:-apple-system,system-ui,sans-serif}
+.wrap{padding:44px 48px;display:grid;gap:22px;width:1200px;box-sizing:border-box}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:18px}
+.grid div{display:grid;justify-items:center;gap:6px;color:#A3A1AC;font-size:12px}
+svg{width:92px;height:92px;display:block}
+</style></head><body><div class="wrap">
+<div class="grid" id="r"></div><div class="grid" id="c"></div></div>
+<script src="../src/robot.js"></script><script src="../src/creature.js"></script>
+<script>
+const names=['Ricercatore','Copywriter','Contabile','Planner','Revisore','Scout','Traduttore','Analista','Designer','Debugger'];
+r.innerHTML=names.map(n=>`<div>${agentAvatar(n).svg}${n}</div>`).join('');
+c.innerHTML=names.map(n=>`<div>${creatureAvatar(n).svg}${n}</div>`).join('');
+</script></body></html>

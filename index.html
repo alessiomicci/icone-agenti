@@ -655,7 +655,13 @@ build();
 if (window.claude && window.claude.use) {
   window.claude.use('downloads').then(d => { downloads = d; if (pack) renderFiles(); if (!d) $('status').textContent = 'Il download non è disponibile in questa vista: apri la pagina su claude.ai.'; });
 } else {
-  $('status').textContent = 'Il download non è disponibile in questa vista: apri la pagina su claude.ai.';
+  // Fuori da claude.ai (file locale, GitHub Pages…): download classico del browser
+  downloads = { save: async ({ filename, data }) => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(data instanceof Blob ? data : new Blob([data]));
+    a.download = filename; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  } };
 }
 </script>
 </body>
