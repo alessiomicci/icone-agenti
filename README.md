@@ -16,7 +16,9 @@ Scrivi il nome di un agente AI e ottieni il suo avatar: un robottino o una creat
 
 ## Provalo
 
-Scarica il repository e apri `index.html` nel browser: non serve installare nulla.
+**Online:** https://alessiomicci.github.io/icone-agenti/
+
+Oppure scarica il repository e apri `index.html` nel browser: non serve installare nulla.
 
 `robot.html` è la prima versione, solo robot, con una squadra di 24 agenti di esempio.
 
